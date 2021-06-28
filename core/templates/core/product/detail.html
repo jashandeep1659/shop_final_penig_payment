@@ -1,0 +1,153 @@
+{% extends "core/base.html" %}
+{% block title %}
+	{{product.name}}
+{% endblock title %}
+{% block content %}
+	<main>
+		<section id="product_detail">
+			<div class="images">
+				<img src="{{product.image.url}}" alt="">
+			</div>
+			<div class="text">
+				<p class="brand_name" style="opacity: .8">{{product.brand_name}}</p>
+				<h1 class="item_name">{{product.name}}</h1>
+				<div class="price">
+					<p>price:</p>
+					<h2>${{product.price}}</h2>
+				</div>
+				{% if product.available == True %}
+					<div class="add_cart">
+						<button type="button" class="add_cart_button">Add to Cart</button>
+					</div>
+				{% else %}
+					Out of Stock
+				{% endif %}
+				<form method="post" action=".">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" class="input" min="1" style="display:none">
+
+        <button type="submit" name="button" class="add-to-cart-btn"><i class='bx bxs-cart-add'></i> Add to cart</button>
+      </form>
+
+{% if product_is_present == None %}
+      <form method="post" action=".">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" class="input" min="1" style="display:none">
+
+        <button type="submit" name="button" class="add-to-cart-btn"><i class='bx bxs-cart-add'></i> Add to cart</button>
+      </form>
+      {% else %}
+      <p style="color:green;">
+        {% if messages %}
+        {% for message in messages  %}
+          {{message}}
+        {% endfor %}
+        {% else %}
+        Item is already present in your cart.
+        {% endif %}
+        </p>
+      <a class="btn btn-success mb-3" href="{% url 'cart' %}" role="button">Check cart</a>
+      {% endif %}
+				<p>
+					{{product.description|safe}}
+				</p>
+			</div>
+		</section>
+		<section id="swipers">
+			
+			<div class="swiper-container swiper-container-detail">
+				<h3>Related Products</h3>
+				<div class="swiper-wrapper">
+					{% for sm_product in same_cat_products %}
+						<div class="swiper-slide">
+							<div class="card">
+								<a href="{% url 'detail' sm_product.slug  %}" title="">
+									<div class="card_body">
+										<img src="{{sm_product.image.url}}" alt="">
+										<p> <strong>
+											{% if product.available == True %}
+												${{sm_product.price}}
+											{% else %}
+												Out of Stock
+											{% endif %}
+										</strong></p>
+									</div>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="swiper-container swiper-container-detail">
+				<h3>Top Deals</h3>
+				<div class="swiper-wrapper">
+					        {% for item in product_with_deals %}
+                              {% for product in latest_products %}
+                              {% if product.id == item.product_id %}
+                                  
+						<div class="swiper-slide">
+							<div class="card">
+								<a href="{% url 'detail' product.slug  %}" title="">
+									<div class="card_body">
+										<img src="{{product.image.url}}" alt="">
+										<p> <strong>
+											{% if product.available == True %}
+												${{product.price}}
+											{% else %}
+												Out of Stock
+											{% endif %}
+										</strong></p>
+										 {% if item.off_percentage %}
+                                        <p><small>Upto {{item.off_percentage}}</small></p>
+                                        {% endif %}
+									</div>
+								</a>
+							</div>
+						</div>
+						{% endif %}
+					{% endfor %}
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="swiper-container swiper-container-detail">
+				<h3>Latest Products</h3>
+				<div class="swiper-wrapper">
+					{% for la_product in latest_products %}
+						<div class="swiper-slide">
+							<div class="card">
+								<a href="{% url 'detail' la_product.slug  %}" title="">
+									<div class="card_body">
+										<img src="{{la_product.image.url}}" alt="">
+										<p> <strong>
+											{% if product.available == True %}
+												${{la_product.price}}
+											{% else %}
+												Out of Stock
+											{% endif %}
+										</strong></p>
+									</div>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<!-- Add Pagination -->
+				<div class="swiper-pagination"></div>
+			</div>
+			<script>
+			var swiper = new Swiper('.swiper-container', {
+			slidesPerView: 'auto',
+			pagination: {
+			el: '.swiper-pagination',
+			clickable: true,
+			},
+			});
+			</script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.5.8/swiper-bundle.min.js" integrity="sha512-sAHYBRXSgMOV2axInO6rUzuKKM5SkItFLlLHQ8YjRD+FBwowtATOs4njP9oim3/MzyAGrB52SLDjpAOLcOT9TA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		</section>
+	</main>
+{% endblock content %}

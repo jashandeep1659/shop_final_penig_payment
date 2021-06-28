@@ -1,0 +1,33 @@
+ .swiper-container-detail {
+      width: 90%;
+      margin: 0 auto;
+      height: 100%;
+      display: grid;
+      margin-top: 50px;
+    }
+
+   .swiper-container-detail  .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      height: 100%;
+}
+@media screen and (max-width: 767.9px)
+ { 
+
+  .swiper-container-detail .swiper-slide {
+  width: 45%;
+ } 
+}
+@media screen and (min-width:767.9px) 
+{ 
+  .swiper-container-detail .swiper-slide {
+  width: 20%;
+ } 
+
+}
+
+   .swiper-container-detail  .swiper-slide .card{
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+   } 

@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% block title %}
+{{title}}
+{% endblock title %}
+
+{% block content %}
+    <main>
+   
+    {% if no_cat %}
+    no cart
+    {% else %}
+    {% for product in products %}
+    <p>{{product.name}}</p>
+    {% endfor %}
+    {% endif %}
+
+
+</main>
+{% endblock content %}

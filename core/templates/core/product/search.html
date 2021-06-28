@@ -1,0 +1,49 @@
+{% extends "core/base.html" %}
+{% block title %}
+	{{query}}
+{% endblock title %}
+{% block content %}
+	<main style="padding: 0 5%;">
+		
+		{% if query %}
+			<h1 style="text-transform: uppercase">{{ query }}</h1>
+			<h3>
+			{% if results %}
+				Founded {{ total_len }} result{{ total_results|pluralize }}
+			{% endif %}
+			</h3>
+			<section id='latest-arrivals'>
+				<div class="card-container">
+					{% for post in results %}
+						
+						<div class="card">
+							<a href="{% url 'detail' post.slug %}" title="">
+								<div class="body-card">
+									{% if post.image %}
+										
+										<img src="{{post.image.url}}" alt="">
+										
+									{% endif %}
+									<p> <strong>
+										{% if post.available == True %}
+											${{post.price}}
+										{% else %}
+											Out of Stock
+										{% endif %}
+									</strong> </p>
+								</div>
+							</a>
+						</div>
+											
+										{% empty %}
+				<p>There are no results for your query.</p>
+			{% endfor %}
+					</div>
+				</section>
+
+
+		{% else %}
+			<h1>Please enter the keyword</h1>
+		{% endif %}
+	</main>
+{% endblock content %}

@@ -1,0 +1,261 @@
+{% extends "core/base.html" %}
+{% block title %}
+    Welcome
+{% endblock title %}
+{% load static %}
+{% block content %}
+     <main>
+          <section id='banner-1'>
+            <div class="main-banner-1" style="background: url({{top_banner.0.image_background.url}})">
+              <div class="text">
+                <small>{{top_banner.0.offer}}</small>
+                <h1 style="font-family: 'Pattaya', sans-serif;">{{top_banner.0.title}}</h1>
+                <p>
+                  {{top_banner.0.para|safe}}
+                </p>
+                <a href="{{top_banner.0.link_page}}">Shop Now</a>
+              </div>
+              <div class="image">
+                <img src="{{top_banner.0.images_of_item.url}}" alt="Not">
+              </div>
+            </div>
+          </section>
+
+          <section id='latest-arrivals'>
+          			<h1 class="main-title">Latest Arrivals</h1>
+          			<div class="card-container">
+
+          				{% for product in latest_products %}
+          				 <div class="card">
+          					<a href="{% url 'detail' product.slug %}" title="">
+          						<div class="body-card">
+          							{% if product.image %}
+          							    
+          							<img src="{{product.image.url}}" alt="">
+          							
+          							{% endif %}
+          							<p> <strong>
+          								{% if product.available == True %}
+          							${{product.price}}
+          								{% else %}
+          								Out of Stock
+          								{% endif %}
+          						</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				
+          				{% endfor %}
+
+          			
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/image-removebg-preview" alt="not found">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+
+
+          			</div>
+          </section>
+
+          <section id="sec_banner">
+               <a href="{% url 'deals_page' %}" title="">
+               <img src="https://tickle-toes.com/wp-content/uploads/banner-deals.jpg" alt="">
+          </a>
+          </section>
+
+             <section id='latest-arrivals'>
+          			<h1 class="main-title">Top Deals</h1>
+          			<div class="card-container">
+                              {% for item in product_with_deals %}
+                              {% for product in latest_products %}
+                              {% if product.id == item.product_id %}
+                                  
+                              
+                              <div class="card">
+                                   <a href="{% url 'detail' product.slug%}" title="">
+                                        <div class="body-card">
+                                             <img src="{{product.image.url}}" alt="">
+                                             <p> <strong>
+                                                  {% if product.available == True %}
+                                             ${{product.price}}
+
+                                                  {% else %}
+                                                  Out of Stock
+                                                  {% endif %}
+                                        </strong> </p>
+                                        {% if item.off_percentage %}
+                                        <p><small>Upto {{item.off_percentage}}</small></p>
+                                        {% endif %}
+                                        </div>
+                                   </a>
+                              </div>
+                              {% endif %}
+                              {% endfor %}
+                              {% endfor %}
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/image-removebg-preview" alt="not found">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+          				<div class="card">
+          					<a href="" title="">
+          						<div class="body-card">
+          							<img src="http://127.0.0.1:8000/media/banner/images/Untitled-1.png" alt="">
+          							<p> <strong>$499</strong> </p>
+          						</div>
+          					</a>
+          				</div>
+
+
+
+          			</div>
+          </section>
+        </main>
+
+{% endblock content %}
